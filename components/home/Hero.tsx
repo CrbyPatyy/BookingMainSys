@@ -100,7 +100,7 @@ export default function Hero() {
               Where timeless elegance meets extraordinary moments
             </motion.p>
 
-            {/* Button group with Dashboard - centered on mobile */}
+            {/* Button group - centered on mobile */}
             <motion.div
               className="flex flex-col sm:flex-row gap-4 items-center md:items-start"
               variants={itemVariants}
@@ -117,12 +117,6 @@ export default function Hero() {
                 className="inline-flex items-center justify-center border-2 border-white/80 bg-white/10 backdrop-blur-md text-white font-semibold text-sm sm:text-base px-6 sm:px-8 py-3 sm:py-4 rounded-lg transition-all duration-300 hover:bg-white/20 hover:border-white hover:scale-105 hover:shadow-2xl shadow-xl"
               >
                 Book Your Stay
-              </Link>
-              <Link
-                href="/dashboard"
-                className="inline-flex items-center justify-center border-2 border-white/50 text-white font-semibold text-sm sm:text-base px-6 sm:px-8 py-3 sm:py-4 rounded-lg transition-all duration-300 hover:bg-white/10 hover:border-white hover:scale-105 hover:shadow-xl shadow-md backdrop-blur-sm"
-              >
-                Dashboard
               </Link>
             </motion.div>
           </div>
