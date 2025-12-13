@@ -18,14 +18,14 @@ interface BookingFormProps {
   tourLocation?: string
 }
 
-export default function BookingForm({ 
-  roomId, 
-  roomName, 
+export default function BookingForm({
+  roomId,
+  roomName,
   roomPrice = 0,
   roomImage,
   roomBeds,
   roomGuests,
-  tourId, 
+  tourId,
   tourName,
   tourPrice = 0,
   tourDuration,
@@ -72,10 +72,10 @@ export default function BookingForm({
 
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 2000))
-    
+
     setIsSubmitted(true)
     setIsSubmitting(false)
-    
+
     setTimeout(() => {
       setIsSubmitted(false)
       setFormData({
@@ -115,12 +115,12 @@ export default function BookingForm({
           >
             <Check className="w-12 h-12" />
           </motion.div>
-          
+
           <h2 className="text-4xl font-bold text-gray-900 mb-4">Booking Confirmed!</h2>
           <p className="text-xl text-gray-600 mb-8">
             Your reservation has been successfully confirmed
           </p>
-          
+
           <div className="bg-gradient-to-br from-primary-50 to-primary-100 rounded-2xl p-8 mb-8">
             <div className="text-sm text-primary-600 font-medium mb-2">Confirmation Number</div>
             <div className="text-4xl font-mono font-bold text-primary-700 mb-4">

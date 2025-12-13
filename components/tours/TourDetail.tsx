@@ -12,7 +12,7 @@ export default function TourDetail({ tour }: TourDetailProps) {
       <div className="mb-8">
         <h1 className="text-4xl font-bold text-gray-900 mb-2">{tour.name}</h1>
         <p className="text-xl text-primary-600 font-bold">
-          ${tour.price} <span className="text-base font-normal text-gray-600">per person</span>
+          ₱{tour.price.toLocaleString()} <span className="text-base font-normal text-gray-600">per person</span>
         </p>
       </div>
 
@@ -70,7 +70,7 @@ export default function TourDetail({ tour }: TourDetailProps) {
         <div>
           <div className="card p-6 sticky top-6">
             <h3 className="font-bold text-lg mb-6">Tour Information</h3>
-            
+
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <Clock className="w-5 h-5 text-primary-600" />
@@ -100,11 +100,11 @@ export default function TourDetail({ tour }: TourDetailProps) {
             <div className="mt-8 pt-6 border-t border-gray-200">
               <div className="text-center mb-4">
                 <div className="text-3xl font-bold text-primary-600 mb-1">
-                  ${tour.price}
+                  ₱{tour.price.toLocaleString()}
                 </div>
                 <p className="text-gray-600">per person</p>
               </div>
-              
+
               <div className="text-sm text-gray-500 space-y-1">
                 <p>✓ Free cancellation 24h before</p>
                 <p>✓ Reserve now, pay later</p>

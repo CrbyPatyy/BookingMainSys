@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-// Mock database - in production, use a real database
-let bookings: any[] = []
+// TODO: Connect to real database (Supabase, Prisma, etc.)
+// import { supabase } from '@/lib/supabase'
 
 export async function POST(request: NextRequest) {
   try {
     const bookingData = await request.json()
-    
+
     // Basic validation
     if (!bookingData.name || !bookingData.email || !bookingData.checkIn || !bookingData.checkOut) {
       return NextResponse.json(
@@ -15,7 +15,20 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Create a new booking with ID and timestamp
+    // TODO: Insert booking into real database
+    // Example with Supabase:
+    // const { data, error } = await supabase.from('bookings').insert({
+    //   guest_name: bookingData.name,
+    //   guest_email: bookingData.email,
+    //   check_in: bookingData.checkIn,
+    //   check_out: bookingData.checkOut,
+    //   room_type: bookingData.roomType,
+    //   total_amount: bookingData.totalAmount,
+    //   status: 'confirmed',
+    //   created_at: new Date().toISOString()
+    // }).select().single()
+
+    // For now, return success with placeholder
     const newBooking = {
       id: Date.now().toString(),
       ...bookingData,
@@ -23,12 +36,9 @@ export async function POST(request: NextRequest) {
       status: 'confirmed'
     }
 
-    // Add to "database"
-    bookings.push(newBooking)
-
     return NextResponse.json(
-      { 
-        success: true, 
+      {
+        success: true,
         message: 'Booking confirmed!',
         booking: newBooking
       },
@@ -44,5 +54,10 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET() {
-  return NextResponse.json({ bookings })
+  // TODO: Fetch bookings from real database
+  // Example with Supabase:
+  // const { data: bookings, error } = await supabase.from('bookings').select('*')
+  // return NextResponse.json({ bookings })
+
+  return NextResponse.json({ bookings: [] })
 }

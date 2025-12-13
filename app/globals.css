@@ -79,4 +79,79 @@
   .scrollbar-thin::-webkit-scrollbar-thumb:hover {
     background: theme('colors.primary.500');
   }
+
+  /* Mobile-first animations */
+  @keyframes slide-in {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .animate-slide-in {
+    animation: slide-in 0.4s ease-out;
+  }
+
+  /* Fast fade-in for instant room rendering */
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.2s ease-out forwards;
+  }
+
+  /* Mobile touch optimization */
+  @media (max-width: 768px) {
+
+    /* Larger tap targets */
+    .btn-primary,
+    .btn-secondary {
+      @apply py-4 px-8 text-base;
+    }
+
+    /* Better mobile spacing */
+    .section-padding {
+      @apply px-6 py-12;
+    }
+
+    /* Comfortable mobile typography */
+    h1 {
+      @apply text-3xl;
+    }
+
+    h2 {
+      @apply text-2xl;
+    }
+
+    /* Full-width cards on mobile */
+    .card {
+      @apply rounded-xl;
+    }
+
+    /* Touch-friendly inputs */
+    .input-field {
+      @apply py-4 text-base;
+      font-size: 16px;
+      /* Prevents iOS zoom on focus */
+    }
+  }
+
+  /* Smooth page transitions */
+  .page-transition {
+    @apply transition-all duration-300 ease-out;
+  }
 }

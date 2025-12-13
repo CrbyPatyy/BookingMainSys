@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { Bed, Users, Wifi, Coffee, Sparkles, ArrowRight } from 'lucide-react'
+import { Bed, Users, Wifi, Coffee, Sparkles, ArrowRight, Maximize } from 'lucide-react'
 import { Room } from '@/types'
 import { motion } from 'framer-motion'
 
@@ -10,94 +10,98 @@ interface RoomCardProps {
   room: Room
 }
 
-const amenityIcons: Record<string, React.ReactNode> = {
-  wifi: <Wifi className="w-4 h-4" />,
-  breakfast: <Coffee className="w-4 h-4" />,
-}
-
 export default function RoomCard({ room }: RoomCardProps) {
   return (
     <motion.div
-      whileHover={{ scale: 1.02 }}
-      className="group relative overflow-hidden rounded-3xl bg-white shadow-soft hover:shadow-hard transition-all duration-500 border border-gray-100"
+      whileHover={{ y: -5 }}
+      className="group bg-white rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full overflow-hidden"
     >
-      {/* Premium badge */}
-      {room.price > 400 && (
-        <div className="absolute top-4 left-4 z-20">
-          <div className="flex items-center gap-1 bg-gradient-to-r from-amber-500 to-amber-600 text-white px-3 py-1.5 rounded-full text-xs font-bold">
-            <Sparkles className="w-3 h-3" />
-            <span>PREMIUM</span>
-          </div>
-        </div>
-      )}
-
-      {/* Image section */}
+      {/* Image Container */}
       <div className="relative h-64 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent z-10" />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary-500/5 to-primary-600/5" />
-        <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-          <span className="text-gray-400">Suite Preview</span>
+        <Image
+          src={room.images[0]}
+          alt={room.name}
+          fill
+          unoptimized
+          className="object-cover group-hover:scale-105 transition-transform duration-700"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60" />
+
+        {/* Top Badges */}
+        <div className="absolute top-4 left-4 flex gap-2">
+          {room.price >= 1000 && (
+            <div className="bg-amber-400 text-amber-950 text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1 shadow-lg">
+              <Sparkles className="w-3 h-3" />
+              <span>PREMIUM</span>
+            </div>
+          )}
         </div>
-        
-        {/* Price tag */}
-        <div className="absolute top-4 right-4 z-20">
-          <div className="bg-white/90 backdrop-blur-sm text-gray-900 font-bold py-2 px-4 rounded-xl shadow-lg">
-            <span className="text-2xl">₱{room.price}</span>
-            <span className="text-sm text-gray-500 ml-1">/night</span>
+
+        {/* Price Tag (Overlay) */}
+        <div className="absolute bottom-4 left-4">
+          <div className="bg-white/95 backdrop-blur-md px-4 py-2 rounded-xl shadow-lg border border-white/20">
+            <span className="text-xl font-bold text-gray-900">₱{room.price.toLocaleString()}</span>
+            <span className="text-xs text-gray-500 font-medium">/person</span>
           </div>
         </div>
       </div>
 
       {/* Content */}
-      <div className="p-6">
-        <div className="flex justify-between items-start mb-3">
-          <h3 className="font-bold text-2xl text-gray-900 group-hover:text-primary-600 transition-colors">
+      <div className="p-6 flex flex-col flex-grow">
+        <div className="flex justify-between items-start mb-2">
+          <h3 className="font-bold text-xl text-gray-900 leading-tight group-hover:text-primary-600 transition-colors">
             {room.name}
           </h3>
-          <span className="text-sm text-gray-500 bg-gray-50 px-3 py-1 rounded-full">
-            {room.size} sq ft
-          </span>
         </div>
 
-        <p className="text-gray-600 mb-6 line-clamp-2 leading-relaxed">{room.description}</p>
+        <p className="text-gray-500 text-sm mb-6 line-clamp-2 leading-relaxed">
+          {room.description}
+        </p>
 
-        {/* Amenities */}
-        <div className="flex items-center gap-4 text-sm text-gray-500 mb-6">
-          <div className="flex items-center gap-2 bg-gray-50 px-3 py-1.5 rounded-lg">
-            <Bed className="w-4 h-4" />
-            <span>{room.beds}</span>
-          </div>
-          <div className="flex items-center gap-2 bg-gray-50 px-3 py-1.5 rounded-lg">
-            <Users className="w-4 h-4" />
-            <span>{room.maxGuests} guests</span>
-          </div>
-          {room.amenities.includes('wifi') && (
-            <div className="flex items-center gap-2 bg-gray-50 px-3 py-1.5 rounded-lg">
-              <Wifi className="w-4 h-4" />
-              <span>WiFi</span>
+        <div className="mt-auto space-y-6">
+          {/* Key Features Grid */}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="flex items-center gap-3 p-2 rounded-lg bg-gray-50 border border-gray-100">
+              <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-primary-600 shadow-sm flex-shrink-0">
+                <Users className="w-4 h-4" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-xs text-gray-400 font-medium uppercase tracking-wider">Guests</span>
+                <span className="text-sm font-semibold text-gray-700">{room.maxGuests} Max</span>
+              </div>
             </div>
-          )}
-        </div>
 
-        {/* Footer */}
-        <div className="flex justify-between items-center pt-6 border-t border-gray-100">
-          <div className="text-2xl font-bold text-gradient">
-            ₱{room.price} <span className="text-sm font-normal text-gray-500">/night</span>
+            <div className="flex items-center gap-3 p-2 rounded-lg bg-gray-50 border border-gray-100">
+              <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-primary-600 shadow-sm flex-shrink-0">
+                <Maximize className="w-4 h-4" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-xs text-gray-400 font-medium uppercase tracking-wider">Size</span>
+                <span className="text-sm font-semibold text-gray-700">{room.size} ft²</span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 p-2 rounded-lg bg-gray-50 border border-gray-100 col-span-2">
+              <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-primary-600 shadow-sm flex-shrink-0">
+                <Bed className="w-4 h-4" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-xs text-gray-400 font-medium uppercase tracking-wider">Bedding</span>
+                <span className="text-sm font-semibold text-gray-700 line-clamp-1">{room.beds}</span>
+              </div>
+            </div>
           </div>
+
           <Link
             href={`/rooms/${room.id}`}
-            className="group/link inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 font-semibold text-sm"
+            className="group/btn w-full flex items-center justify-center gap-2 bg-gray-900 text-white py-3.5 rounded-xl font-semibold hover:bg-primary-600 transition-all duration-300 shadow-lg shadow-gray-200 hover:shadow-primary-500/30"
           >
-            <span>Explore Suite</span>
-            <div className="relative overflow-hidden">
-              <ArrowRight className="w-4 h-4 transition-transform group-hover/link:translate-x-1" />
-            </div>
+            <span>View Room Details</span>
+            <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
           </Link>
         </div>
       </div>
-
-      {/* Hover effect overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-primary-500/0 via-primary-500/0 to-primary-600/0 group-hover:from-primary-500/5 group-hover:via-primary-500/10 group-hover:to-primary-600/5 transition-all duration-500 pointer-events-none rounded-3xl" />
     </motion.div>
   )
 }
