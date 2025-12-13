@@ -1,13 +1,13 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { toursData } from '@/lib/data'
 import { Calendar, Users, Phone, Mail, User, MapPin, Clock, CheckCircle } from 'lucide-react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 
-export default function TourBookingPage() {
+function TourBookingContent() {
     const searchParams = useSearchParams()
     const router = useRouter()
     const tourId = searchParams.get('tourId')
@@ -41,7 +41,6 @@ export default function TourBookingPage() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        // Here you would typically send the booking to your backend
         console.log('Tour Booking:', {
             tour: selectedTour,
             ...formData,
@@ -309,5 +308,23 @@ export default function TourBookingPage() {
                 </div>
             </div>
         </div>
+    )
+}
+
+// Loading component for Suspense fallback
+function LoadingFallback() {
+    return (
+        <div className="min-h-screen bg-gray-50 pt-24 flex items-center justify-center">
+            <div className="inline-block animate-spin rounded-full h-10 w-10 border-4 border-primary-600 border-t-transparent"></div>
+        </div>
+    )
+}
+
+// Main export with Suspense wrapper
+export default function TourBookingPage() {
+    return (
+        <Suspense fallback={<LoadingFallback />}>
+            <TourBookingContent />
+        </Suspense>
     )
 }
