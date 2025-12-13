@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { X, Bed, CheckCircle, AlertTriangle, Sparkles } from 'lucide-react'
-import { getRooms, HousekeepingStatus } from '@/lib/db/rooms'
+import { getRooms } from '@/lib/db/rooms'
 
 interface RoomAssignmentModalProps {
     isOpen: boolean
@@ -15,13 +15,6 @@ interface RoomAssignmentModalProps {
         checkOut: string
     } | null
     onAssign: (bookingId: string, roomId: string, roomNumber: string, earlyCheckIn?: boolean) => void
-}
-
-const housekeepingLabels: Record<HousekeepingStatus, { label: string; color: string; assignable: boolean }> = {
-    clean: { label: '✓ Clean', color: 'bg-emerald-100 text-emerald-700', assignable: true },
-    inspected: { label: '✔ Inspected', color: 'bg-blue-100 text-blue-700', assignable: true },
-    dirty: { label: '⚠ Dirty', color: 'bg-red-100 text-red-700', assignable: false },
-    cleaning: { label: '🧹 Cleaning', color: 'bg-amber-100 text-amber-700', assignable: false },
 }
 
 export default function RoomAssignmentModal({ isOpen, onClose, booking, onAssign }: RoomAssignmentModalProps) {
@@ -42,9 +35,9 @@ export default function RoomAssignmentModal({ isOpen, onClose, booking, onAssign
         try {
             const allRooms = await getRooms()
             // Filter to rooms of the booked type that are available
-            // In production, also filter by actual availability for the dates
             const matchingRooms = allRooms.filter(room =>
-                room.type?.toLowerCase().includes(booking?.roomType?.toLowerCase() || '')
+                room.type?.toLowerCase().includes(booking?.roomType?.toLowerCase() || '') &&
+                room.status === 'available'
             )
             setRooms(matchingRooms)
         } catch (error) {
@@ -68,13 +61,12 @@ export default function RoomAssignmentModal({ isOpen, onClose, booking, onAssign
         onClose()
     }
 
-    const assignableRooms = rooms.filter(r =>
-        housekeepingLabels[r.housekeeping_status as HousekeepingStatus]?.assignable
-    )
+    // Filter to only available rooms
+    const availableRooms = rooms.filter(r => r.status === 'available')
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
+            <div className="absolute inset-0 bg-black/60" onClick={onClose} />
 
             <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[85vh] overflow-hidden flex flex-col animate-fade-in">
                 {/* Header */}
@@ -107,31 +99,26 @@ export default function RoomAssignmentModal({ isOpen, onClose, booking, onAssign
                         <div className="flex items-center justify-center py-12">
                             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600" />
                         </div>
-                    ) : assignableRooms.length === 0 ? (
+                    ) : availableRooms.length === 0 ? (
                         <div className="text-center py-12">
                             <AlertTriangle className="mx-auto text-amber-500 mb-3" size={48} />
                             <h3 className="font-bold text-gray-900">No Rooms Available</h3>
                             <p className="text-gray-500 text-sm mt-1">
-                                No clean rooms of type "{booking.roomType}" are available
+                                No available rooms of type "{booking.roomType}" found
                             </p>
                         </div>
                     ) : (
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                            {rooms.map((room) => {
-                                const housekeeping = housekeepingLabels[room.housekeeping_status as HousekeepingStatus]
-                                const isAssignable = housekeeping?.assignable
+                            {availableRooms.map((room) => {
                                 const isSelected = selectedRoom === room.id
 
                                 return (
                                     <button
                                         key={room.id}
-                                        onClick={() => isAssignable && setSelectedRoom(room.id)}
-                                        disabled={!isAssignable}
+                                        onClick={() => setSelectedRoom(room.id)}
                                         className={`p-4 rounded-xl border-2 text-left transition-all ${isSelected
-                                                ? 'border-blue-500 bg-blue-50 ring-2 ring-blue-200'
-                                                : isAssignable
-                                                    ? 'border-gray-200 hover:border-blue-300 hover:bg-gray-50'
-                                                    : 'border-gray-100 bg-gray-50 opacity-50 cursor-not-allowed'
+                                            ? 'border-blue-500 bg-blue-50 ring-2 ring-blue-200'
+                                            : 'border-gray-200 hover:border-blue-300 hover:bg-gray-50'
                                             }`}
                                     >
                                         <div className="flex items-center justify-between mb-2">
@@ -139,8 +126,8 @@ export default function RoomAssignmentModal({ isOpen, onClose, booking, onAssign
                                             {isSelected && <CheckCircle className="text-blue-600" size={20} />}
                                         </div>
                                         <p className="text-sm text-gray-600 mb-2">{room.type}</p>
-                                        <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${housekeeping?.color}`}>
-                                            {housekeeping?.label}
+                                        <span className="inline-block px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">
+                                            Available
                                         </span>
                                     </button>
                                 )
@@ -177,8 +164,8 @@ export default function RoomAssignmentModal({ isOpen, onClose, booking, onAssign
                         onClick={handleAssign}
                         disabled={!selectedRoom || assigning}
                         className={`flex-1 px-4 py-3 rounded-xl font-bold flex items-center justify-center gap-2 ${selectedRoom
-                                ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-500/20'
-                                : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                            ? 'bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-500/20'
+                            : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                             }`}
                     >
                         {assigning ? (
