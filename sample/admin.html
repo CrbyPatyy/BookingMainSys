@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inn Booking Admin Dashboard</title>
+    <link rel="stylesheet" href="../sample/admin.css">
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">LJC</div>
+                <span class="logo-text">LJC Inn Booking</span>
+            </div>
+            <nav class="nav-menu">
+                <div class="nav-item active" data-page="dashboard">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                    </svg>
+                    <span class="nav-text">Dashboard</span>
+                </div>
+                <div class="nav-item" data-page="bookings">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                    </svg>
+                    <span class="nav-text">Bookings</span>
+                </div>
+                <div class="nav-item" data-page="rooms">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                    </svg>
+                    <span class="nav-text">Rooms</span>
+                </div>
+                <div class="nav-item" data-page="guests">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                    </svg>
+                    <span class="nav-text">Guests</span>
+                </div>
+                <div class="nav-item" data-page="payments">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                    </svg>
+                    <span class="nav-text">Payments</span>
+                </div>
+                     <div class="nav-item" data-page="completed">
+    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M5 13l4 4L19 7" />
+    </svg>
+    <span class="nav-text">Completed</span>
+</div>
+                <div class="nav-item" data-page="reports">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                    </svg>
+                    <span class="nav-text">Reports</span>
+                </div>
+                <div class="nav-item" data-page="settings">
+                    <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                    <span class="nav-text">Settings</span>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="top-bar">
+                <button class="menu-toggle" id="menuToggle">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+                <div class="top-bar-right">
+                    <input type="text" class="search-bar" placeholder="Search...">
+                    <div class="user-profile">
+                        <div class="avatar">LJC</div>
+                        <div>
+                            <div style="font-weight: 600; font-size: 14px;">LJC</div>
+                            <div style="font-size: 12px; color: var(--text-secondary);">Administrator</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content" id="content">
+                <!-- Dashboard Page -->
+                <!-- Dashboard Page - SIMPLE & WORKING -->
+<div class="page-content active" id="dashboard-page">
+    <div class="page-header">
+        <h1 class="page-title">Dashboard</h1>
+        <p class="page-subtitle">Today's Overview - <?php echo date('F j, Y'); ?></p>
+    </div>
+
+    <!-- Simple Stats Grid -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-header">
+                <div class="stat-icon primary">🏠</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="totalRooms">10</div>
+                    <div class="stat-label">Total Rooms</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-header">
+                <div class="stat-icon success">🟢</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="availableRooms">0</div>
+                    <div class="stat-label">Available</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-header">
+                <div class="stat-icon danger">🔴</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="occupiedRooms">0</div>
+                    <div class="stat-label">Occupied</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-header">
+                <div class="stat-icon warning">🟡</div>
+                <div class="stat-info">
+                    <div class="stat-value" id="reservedRooms">0</div>
+                    <div class="stat-label">Reserved</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Today's Activities - Enhanced Version -->
+<div class="table-card">
+    <div class="table-header">
+        <h3>📋 Today's Activities - <?php echo date('F j, Y'); ?></h3>
+        <button class="btn-refresh" onclick="loadTodaysActivities()">
+            🔄 Refresh
+        </button>
+    </div>
+    
+    <div class="activities-grid">
+        <!-- Arriving Today Column -->
+        <div class="activity-column">
+            <div class="column-header">
+                <h4>🟢 Arriving Today</h4>
+                <span class="count-badge" id="arrivalsCount">0</span>
+            </div>
+            <div class="activity-list" id="arrivalsList">
+                <div class="empty-activity">Loading arrivals...</div>
+            </div>
+        </div>
+        
+        <!-- Tours Today Column -->
+        <div class="activity-column">
+            <div class="column-header">
+                <h4>🚌 Tours Today</h4>
+                <span class="count-badge" id="toursCount">0</span>
+            </div>
+            <div class="activity-list" id="toursList">
+                <div class="empty-activity">Loading tours...</div>
+            </div>
+        </div>
+
+        <!-- Special Services Column -->
+        <div class="activity-column">
+            <div class="column-header">
+                <h4>🍽️ Meals</h4>
+                <span class="count-badge" id="mealsCount">0</span>
+            </div>
+            <div class="activity-list" id="mealsList">
+                <div class="empty-activity">Loading services...</div>
+            </div>
+        </div>
+    </div>
+</div>
+                </div>
+
+                <!-- Completed Page (No Duplicate Message) -->
+<div class="page-content" id="completed-page">
+  <div class="page-header">
+    <h1 class="page-title">Completed</h1>
+    <p class="page-subtitle">All guests who have checked out</p>
+  </div>
+
+  <div class="table-card">
+    <div class="scrollable-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Guest Name</th>
+            <th>Room Type</th>
+            <th>Check-in</th>
+            <th>Check-out</th>
+            <th>Status</th>
+            <th>Contact</th>
+          </tr>
+        </thead>
+        <!-- 🟢 tbody starts empty; JS will fill it -->
+        <tbody id="completedTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Bookings Page -->
+<div class="page-content" id="bookings-page">
+  <div class="page-header">
+    <h1 class="page-title">Bookings</h1>
+    <p class="page-subtitle">Manage all your bookings</p>
+    <button class="btn-new-booking" onclick="openNewBookingModal()">
+      ➕ New Booking (Walk-in)
+    </button>
+  </div>
+
+  <div class="table-card">
+    <table>
+      <thead>
+        <tr>
+          <th>Guest Name</th>
+          <th>Room</th>
+          <th>Check-in</th>
+          <th>Check-out</th>
+          <th>Status</th>
+          <th>Amount</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="bookingsPageTableBody">
+        <tr>
+          <td colspan="7" style="text-align:center;">Loading...</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+               <!-- Rooms Page -->
+<div class="page-content" id="rooms-page">
+    <div class="page-header">
+        <h1 class="page-title">Room Management</h1>
+        <p class="page-subtitle">Real-time occupancy and availability tracking</p>
+        
+        <!-- Modern Date Filter Card -->
+        <div class="filter-card">
+            <div class="filter-header">
+                <div class="filter-icon">📅</div>
+                <div class="filter-title">
+                    <h3>Date Filter</h3>
+                    <p>View room status for any specific date</p>
+                </div>
+            </div>
+            <div class="filter-controls">
+                <div class="date-input-group">
+                    <label for="roomDateFilter" class="date-label">
+                        <span class="calendar-icon">📅</span>
+                        Select Date
+                    </label>
+                    <input type="date" id="roomDateFilter" class="modern-date-input" 
+                           value="<?php echo date('Y-m-d'); ?>">
+                    <div class="date-actions">
+                        <button class="btn-today" onclick="setDateToToday()">
+                            <span>Today</span>
+                        </button>
+                        <button class="btn-clear" onclick="clearRoomDateFilter()">
+                            <span>Clear</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="quick-dates">
+                    <span class="quick-label">Quick select:</span>
+                    <button class="quick-btn" onclick="setQuickDate(0)">Today</button>
+                    <button class="quick-btn" onclick="setQuickDate(1)">Tomorrow</button>
+                    <button class="quick-btn" onclick="setQuickDate(7)">Next Week</button>
+                </div>
+            </div>
+            <div class="filter-stats" id="filterStats">
+                <div class="stat-pill">
+                    <span class="stat-dot available"></span>
+                    <span id="availableCount">0</span> Available
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-dot occupied"></span>
+                    <span id="occupiedCount">0</span> Occupied
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-dot reserved"></span>
+                    <span id="reservedCount">0</span> Reserved
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-card">
+        <div class="table-header">
+            <h3>Room Inventory</h3>
+            <div class="table-actions">
+                <button class="btn-refresh" onclick="loadRoomsPage()">
+                    <span class="refresh-icon">🔄</span>
+                    Refresh
+                </button>
+            </div>
+        </div>
+        <div class="scrollable-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Room #</th>
+                        <th>Type</th>
+                        <th>Price</th>
+                        <th>Capacity</th>
+                        <th>Status</th>
+                        <th>Current Guest</th>
+                        <!-- Removed Actions column -->
+                    </tr>
+                </thead>
+                <tbody id="roomsTableBody">
+                    <tr>
+                        <td colspan="6" class="empty-state"> <!-- Changed from 7 to 6 -->
+                            <div class="loading-spinner"></div>
+                            <p>Loading room data...</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+                <!-- Guests Page -->
+<div class="page-content" id="guests-page">
+    <div class="page-header">
+        <h1 class="page-title">Guests</h1>
+        <p class="page-subtitle">Guests currently staying at the inn</p>
+    </div>
+    <div class="table-card">
+        <table>
+            <thead>
+                <tr>
+                    <th>Guest Name</th>
+                    <th>Room Type</th>
+                    <th>Check-in</th>
+                    <th>Check-out</th>
+                    <th>Status</th>
+                    <th>Contact</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="guestsTableBody">
+                <tr>
+                    <td colspan="7" class="empty-state">
+                        <div>No current guests</div>
+                        <p>Guests who are checked-in will appear here</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+                <!-- Payments Page -->
+                <div class="page-content" id="payments-page">
+                    <div class="page-header">
+                                        <h1 class="page-title">Payments</h1>
+                    <p class="page-subtitle">Track all payment transactions</p>
+                </div>
+                <div class="table-card">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Transaction ID</th>
+                                <th>Guest</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Method</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="7" class="empty-state">
+                                    <div>No payments found</div>
+                                    <p>Payments from your MySQL database will appear here</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+            <!-- Reports Page -->
+            <div class="page-content" id="reports-page">
+                <div class="page-header">
+                    <h1 class="page-title">Reports</h1>
+                    <p class="page-subtitle">Generate and view reports</p>
+                </div>
+                <div class="empty-state" style="padding: 60px;">
+                    <div>No reports available</div>
+                    <p>Reports generated from your MySQL database will appear here</p>
+                </div>
+            </div>
+
+            <!-- Settings Page -->
+            <div class="page-content" id="settings-page">
+                <div class="page-header">
+                    <h1 class="page-title">Settings</h1>
+                    <p class="page-subtitle">Configure your system settings</p>
+                </div>
+                <div class="empty-state" style="padding: 60px;">
+                    <div>Settings panel</div>
+                    <p>Configure your MySQL database connection and system preferences</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="../sample/admin.js"></script>
+
+<!-- Custom confirmation modal -->
+<div id="confirmModal" style="
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: none; align-items: center; justify-content: center;
+    z-index: 9999;
+">
+    <div style="
+        background: white; padding: 24px 28px; border-radius: 12px;
+        width: 320px; text-align: center;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        animation: fadeInScale 0.3s ease-out;
+    ">
+        <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 10px;">Confirm Check-out</h3>
+        <p style="font-size: 14px; color: #475569; margin-bottom: 20px;">
+            Are you sure you want to mark this guest as checked out?
+        </p>
+        <div style="display: flex; gap: 10px; justify-content: center;">
+            <button id="confirmYes" style="
+                background: #10b981; color: white; border: none;
+                padding: 8px 18px; border-radius: 8px; cursor: pointer;
+                font-weight: 600;
+            ">Yes</button>
+            <button id="confirmNo" style="
+                background: #e2e8f0; color: #1e293b; border: none;
+                padding: 8px 18px; border-radius: 8px; cursor: pointer;
+                font-weight: 600;
+            ">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<style>
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.9); }
+    to   { opacity: 1; transform: scale(1); }
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- New Booking Modal -->
+<div id="newBookingModal" style="
+    position: fixed; 
+    inset: 0; 
+    background: rgba(0,0,0,0.5); 
+    display: none; 
+    align-items: center; 
+    justify-content: center; 
+    z-index: 10000;
+    padding: 20px;
+">
+    <div style="
+        background: white; 
+        padding: 0; 
+        border-radius: 16px; 
+        width: 90%; 
+        max-width: 700px; 
+        max-height: 90vh; 
+        overflow-y: auto;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    ">
+        <div style="
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 24px;
+            border-radius: 16px 16px 0 0;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        ">
+            <h3 style="margin: 0; font-size: 20px; font-weight: 700;">New Walk-in Booking</h3>
+            <p style="margin: 8px 0 0 0; opacity: 0.9;">Create booking for walk-in guest</p>
+        </div>
+        
+        <div style="padding: 24px;">
+            <form id="walkinBookingForm">
+                <!-- Guest Information -->
+                <div style="margin-bottom: 24px;">
+                    <h4 style="margin-bottom: 16px; color: var(--text-primary); border-bottom: 2px solid var(--border); padding-bottom: 8px;">Guest Information</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        <div>
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-primary);">First Name *</label>
+                            <input type="text" id="walkinFirstName" required style="width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 8px; font-size: 14px;">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-primary);">Last Name *</label>
+                            <input type="text" id="walkinLastName" required style="width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 8px; font-size: 14px;">
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px;">
+                        <div>
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-primary);">Email</label>
+                            <input type="email" id="walkinEmail" style="width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 8px; font-size: 14px;">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-primary);">Phone *</label>
+                            <input type="tel" id="walkinPhone" required style="width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 8px; font-size: 14px;">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dates & Duration FIRST -->
+                <div style="margin-bottom: 24px;">
+                    <h4 style="margin-bottom: 16px; color: var(--text-primary); border-bottom: 2px solid var(--border); padding-bottom: 8px;">Dates & Duration</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+                        <div>
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-primary);">Check-in Date *</label>
+                            <input type="date" id="walkinCheckin" required style="width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 8px; font-size: 14px;">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-primary);">Check-out Date *</label>
+                            <input type="date" id="walkinCheckout" required style="width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 8px; font-size: 14px;">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-primary);">Nights</label>
+                            <input type="text" id="walkinNights" readonly style="width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 8px; font-size: 14px; background: var(--bg-main); font-weight: 600; text-align: center;">
+                        </div>
+                    </div>
+                    <div style="margin-top: 12px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-primary);">Number of Guests *</label>
+                        <input type="number" id="walkinGuests" min="1" max="10" value="1" required style="width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 8px; font-size: 14px;">
+                    </div>
+                </div>
+
+                <!-- Room Selection SECOND (after dates) -->
+                <div style="margin-bottom: 24px;">
+                    <h4 style="margin-bottom: 16px; color: var(--text-primary); border-bottom: 2px solid var(--border); padding-bottom: 8px;">Room Selection</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        <div>
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-primary);">Room Type *</label>
+                            <select id="walkinRoomType" required style="width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 8px; font-size: 14px; background: white;">
+                                <option value="">Select Dates First</option>
+                                <!-- Room types will be populated by JavaScript -->
+                            </select>
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-primary);">Room Number *</label>
+                            <select id="walkinRoomNumber" required style="width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 8px; font-size: 14px; background: white;">
+                                <option value="">Select Room Type First</option>
+                                <!-- Rooms will be populated by JavaScript -->
+                            </select>
+                        </div>
+                    </div>
+                    <div id="roomDetails" style="margin-top: 12px; padding: 12px; background: var(--bg-main); border-radius: 8px; display: none;">
+                        <div style="display: flex; justify-content: space-between; font-size: 13px;">
+                            <span>Price per night: <strong id="roomPricePerNight">₱0</strong></span>
+                            <span>Capacity: <strong id="roomCapacity">0 guests</strong></span>
+                            <span>Available: <strong id="roomAvailability">No</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Services -->
+                <div style="margin-bottom: 24px;">
+                    <h4 style="margin-bottom: 16px; color: var(--text-primary); border-bottom: 2px solid var(--border); padding-bottom: 8px;">Additional Services</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        <div>
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-primary);">Meals</label>
+                            <select id="walkinMeals" style="width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 8px; font-size: 14px; background: white;">
+                                <option value="no" data-price="0">No Meals</option>
+                                <option value="breakfast" data-price="500">Breakfast Only (+₱500/day)</option>
+                                <option value="all" data-price="1200">All Meals (+₱1,200/day)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-primary);">Tours</label>
+                            <select id="walkinTours" style="width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 8px; font-size: 14px; background: white;">
+                                <option value="no" data-price="0">No Tours</option>
+                                <option value="tour_a" data-price="1500">Tour A (+₱1,500)</option>
+                                <option value="tour_b" data-price="2000">Tour B (+₱2,000)</option>
+                                <option value="tour_c" data-price="2500">Tour C (+₱2,500)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Price Calculation -->
+                <div style="background: var(--bg-main); padding: 20px; border-radius: 12px; margin-bottom: 20px; border: 2px solid var(--border);">
+                    <h4 style="margin-bottom: 16px; color: var(--text-primary); text-align: center;">Price Calculation</h4>
+                    <div style="display: grid; gap: 10px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="color: var(--text-secondary);">Room (<span id="nightsDisplay">0</span> nights):</span>
+                            <span id="roomPriceDisplay" style="font-weight: 600;">₱0</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="color: var(--text-secondary);">Meals (<span id="mealsNightsDisplay">0</span> days):</span>
+                            <span id="mealsPriceDisplay" style="font-weight: 600;">₱0</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="color: var(--text-secondary);">Tours:</span>
+                            <span id="toursPriceDisplay" style="font-weight: 600;">₱0</span>
+                        </div>
+                        <hr style="border: none; border-top: 2px solid var(--border); margin: 12px 0;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 18px; font-weight: 700; padding-top: 8px;">
+                            <span style="color: var(--text-primary);">Total Amount:</span>
+                            <span id="totalAmountDisplay" style="color: var(--primary); font-size: 20px;">₱0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ADD THIS HIDDEN INPUT FOR TOTAL AMOUNT -->
+                <input type="hidden" id="walkinAmount" name="walkinAmount" value="0">
+
+                <!-- Action Buttons -->
+                <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px;">
+                    <button type="button" onclick="closeNewBookingModal()" style="
+                        padding: 12px 24px; 
+                        background: var(--bg-main); 
+                        color: var(--text-secondary); 
+                        border: 1px solid var(--border); 
+                        border-radius: 8px; 
+                        cursor: pointer; 
+                        font-weight: 600;
+                        transition: all 0.3s ease;
+                    ">Cancel</button>
+                    <button type="submit" id="confirmBookingBtn" style="
+                        padding: 12px 24px; 
+                        background: linear-gradient(135deg, var(--success), #059669); 
+                        color: white; 
+                        border: none; 
+                        border-radius: 8px; 
+                        cursor: pointer; 
+                        font-weight: 600;
+                        transition: all 0.3s ease;
+                    ">Confirm Booking</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
